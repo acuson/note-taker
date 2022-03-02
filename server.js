@@ -1,9 +1,19 @@
-// Require express
+// Require
 const express = require('express');
+const path = require('path');
+const fs = requidre('fs');
+const { v4: uuid } = require("uuid");
 
-// Import modular routers
-const notesRouter = require('./notes');
-
+const PORT = process.env.PORT || 3001;
 const app = express();
-app.use('/notes', notesRouter);
-module.exports = app;
+
+
+// GET route for notes page
+
+// POST route to save notes
+
+// DELETE notes
+
+app.listen(PORT, () =>
+  console.log(`App listening at http://localhost:${PORT}`)
+);
