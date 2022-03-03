@@ -1,6 +1,7 @@
 // Require
 const express = require('express');
 const path = require('path');
+const api = require('./routes/index');
 const fs = require('fs');
 const { v4: uuid } = require('uuid');
 
@@ -14,9 +15,10 @@ app.use(express.static('public'));
 
 // JSON middleware
 app.use(express.json());
+app.use('/api', api);
 
 // GET route for index
-app.get('/', (req, res) =>
+app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
