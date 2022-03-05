@@ -1,7 +1,7 @@
 // Require
 const express = require('express');
 const path = require('path');
-const api = require('./routes/index');
+const api = require('./Develop/routes/index');
 const fs = require('fs');
 
 // PORT
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use('/api', api);
 
 // GET route for index
-app.get('*', (req, res) =>
+app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
