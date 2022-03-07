@@ -67,8 +67,19 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
-// DELETE /api/notes/:id (optional)
+// DELETE /api/notes/:id
+app.delete('/api/notes/:id', (req, res) => {
+  let jsonNote = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'));
+  let id = req.params.id;
 
+  jsonNote = jsonNote.filter(note => {
+    return note.id != id;
+  })
+
+  fs.writeFileSync('./db/db.json', JSON.stringify(jsonNote));
+  res.json(JSON.stringify(jsonNote));
+  console.log('Note deleted.') // note is not deleting here
+})
   
 
 app.listen(PORT, () =>
