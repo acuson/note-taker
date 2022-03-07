@@ -1,29 +1,31 @@
-// Require
+// Require these modules:
 const express = require('express');
 const path = require('path');
-const api = require('./routes/index');
 const fs = require('fs');
-// const notesRouter = require('./notes');
+const { v4: uuid } = require('uuid');
+
+// Require JSON db file
+const db = require('./db/db.json');
+
+// Init express
 const app = express();
 
 // PORT
 const PORT = process.env.PORT || 3001;
 
-// Init express
-// const app = express();
-
+// Static folder
 app.use(express.static('public'));
 
 // JSON middleware
 app.use(express.json());
-app.use('/api', api);
 
-// GET route for index
+
+// Frontend GET route for index
 app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, './public/index.html'))
 );
 
-// GET route for notes page
+// Frontend GET route for notes page
 app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, './public/notes.html'))
 );
@@ -83,8 +85,10 @@ app.post('/api/notes', (req, res) => {
 
   // DELETE /api/notes/:id (optional)
 
-  // module.exports = app;
+  
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT}`)
 );
+
+module.exports = router;
