@@ -8,7 +8,8 @@ const { v4: uuid } = require('uuid');
 const db = require('./db/db.json');
 
 // Paths
-const pagePath = path.join(__dirname, './public/index.html');
+const indexPath = path.join(__dirname, './public/index.html');
+const notesPath = path.join(__dirname, './public/notes.html');
 const dbPath = path.join(__dirname, './db/db.json');
 
 // Init express
@@ -26,23 +27,21 @@ app.use(express.json());
 
 // Frontend GET route for index
 app.get('/', (req, res) =>
-  res.sendFile(pagePath)
+  res.sendFile(indexPath)
 );
 
 // Frontend GET route for notes page
 app.get('/notes', (req, res) =>
-  res.sendFile(pagePath)
+  res.sendFile(notesPath)
 );
 
 
-// GET /api/notes
-app.get('/api/notes', (req, res) => {
-    fs.readFile(dbPath).then((data) =>
-        res.json(JSON.parse(data))
-    );
-})
+// Backend GET /api/notes
+app.get('/api/notes', (req, res) => 
+  res.status(200).json(db));
 
-// POST /api/notes
+
+// Backend POST /api/notes
 app.post('/api/notes', (req, res) => {
     const { title, text } = req.body;
 
@@ -68,7 +67,7 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
-  // DELETE /api/notes/:id (optional)
+// DELETE /api/notes/:id (optional)
 
   
 
