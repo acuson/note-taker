@@ -7,6 +7,10 @@ const { v4: uuid } = require('uuid');
 // Require JSON db file
 const db = require('./db/db.json');
 
+// Paths
+const pagePath = path.join(__dirname, './public/index.html');
+const dbPath = path.join(__dirname, './db/db.json');
+
 // Init express
 const app = express();
 
@@ -22,33 +26,14 @@ app.use(express.json());
 
 // Frontend GET route for index
 app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname, './public/index.html'))
+  res.sendFile(pagePath)
 );
 
 // Frontend GET route for notes page
 app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, './public/notes.html'))
+  res.sendFile(pagePath)
 );
 
-// Require express
-// const express = require('express');
-
-// Import modular routes
-
-// app.use('/notes', notesRouter);
-
-// module.exports = app;
-
-// Require
-const notes = require('express').Router();
-// const express = require('express');
-// const app = express();
-const { v4: uuid } = require('uuid');
-// const path = require('path');
-let noteData = require('/Users/Alyssa/bootcamp/homework/note-taker/Develop/db/db.json');
-
-// Path for the database
-const dbPath = path.join(__dirname, '/db/db.json');
 
 // GET /api/notes
 app.get('/api/notes', (req, res) => {
@@ -74,8 +59,8 @@ app.post('/api/notes', (req, res) => {
             id: uuid()
         };
 
-        noteData.push(newNote);
-        fs.writeFileSync(dbPath, JSON.stringify(noteData), err =>
+        db.push(newNote);
+        fs.writeFileSync(dbPath, JSON.stringify(db), err =>
             err ? console.log(err) : console.log('Note Saved')
         );
 
@@ -90,5 +75,3 @@ app.post('/api/notes', (req, res) => {
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT}`)
 );
-
-module.exports = router;
