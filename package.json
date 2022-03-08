@@ -2,5 +2,8 @@
   "dependencies": {
     "express": "^4.17.3",
     "uuid": "^8.3.2"
+  },
+  "scripts": {
+    "start": "node Develop/server.js"
   }
 }
